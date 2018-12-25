@@ -61,7 +61,7 @@ const url = "mongodb://localhost:27017/usersdb";
          
   }
 
-deleteAll()
+//deleteAll()
 function deleteAll() {
 
     mongoClient.connect(url, function(err, client){
