@@ -93,8 +93,7 @@
                   //var rows = "";
                   var rows=[];
                   $.each(users, (i,o)=>rows.push(o));
-                  console.log(rows);
-                  console.log(compose(rows[0]));
+
                   //$( "#mess0" ).append( "<p>"+rows[0].record+"</p>" );    
                   $( "#mess0" ).append( compose(rows[0]) );
                   $( "#mess1" ).append( compose(rows[1]) );
@@ -120,8 +119,13 @@
   function clin(vol){
     //socket.emit('chat message', vol);
     //$( "#mess0" ).append( "<p>"+vol[0].email+"</p>" ); 
-    $( "#mess0" ).append( compose(vol[0]) );
-    console.log(vol);
+    $( "#mess0" ).html( compose(vol[0]) );
+    $( "#mess1" ).html( compose(vol[1]) );
+    $( "#mess2" ).html( compose(vol[2]) );
+    $( "#mess3" ).html( compose(vol[3]) );
+    $( "#mess4" ).html( compose(vol[4]) );
+    $( "#mess5" ).html( compose(vol[5]) );
+    //console.log(vol);
       
   }
     function compose(data){
@@ -131,21 +135,21 @@
       var answer='<div class="container" >';
 
       answer+='<div class="row" style="background: green; color: black;">';
-      answer+='<div class="col-12">';
+      answer+='<div class="col-12" style="word-wrap: break-word;">';
       answer+=name;
       answer+='</div>';
       answer+='</div>';
       
 
       answer+='<div class="row" style="background: gray; color: green;">';
-      answer+='<div class="col-12">';
+      answer+='<div class="col-12" style="word-wrap: break-word;">';
       answer+=email;
       answer+='</div>';
       answer+='</div>';
       
 
       answer+='<div class="row" style="background: gray; color: black;">';
-      answer+='<div class="col-12">';
+      answer+='<div class="col-12" style="word-wrap: break-word;">';
       answer+=kommit;
       answer+='</div>';
       answer+='</div>';
