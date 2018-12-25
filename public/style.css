@@ -1,0 +1,15 @@
+body{
+	background: black;
+	color: white;
+}
+
+.btn.btn-sm {
+  color: #fff;
+  background-color: red;
+  border-color: red;
+}
+
+#mypanelId{
+    background: red;
+    color: white;
+     }

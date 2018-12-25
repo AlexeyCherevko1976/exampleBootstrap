@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>  
+   
+  </head>
+  <body> <!-- style="background: black; color: white; " -->
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-8"><img src="firma.jpg" class="img-fluid" alt="image"></div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-8"><img src="pochta.jpg" class="img-fluid" alt="image"></div>    
+  </div>
+  <div class="row">
+    <div class="col-sm-8"></div>
+    <div class="col-sm-3">
+        <div class="panel-body">
+            <a id="record" class="btn btn-sm btn-primary" >Записать</a>
+        </div>
+    </div>    
+  </div>
+
+  <div class="row">
+    <div class="col-sm-4">
+        <div class="form-group">
+            <label for="login">Имя*:</label>
+            <input class="form-control" name="name" id="name"   placeholder="" value='Alexey'/>
+        </div>
+        <div class="form-group">
+            <label for="password">e-mail*:</label>
+            <input class="form-control" name="email" id="email" placeholder="" value='cherevkoalexey1976@mail.ru'/>
+        </div>
+    </div>  
+    <div class="col-sm-8" heihgt="20">
+        <div class="form-group">
+            <label for="login">Комментарий*:</label>
+            <input class="form-control" name="kommit" id="kommit"   placeholder="" value=''/>
+        </div>      
+    </div>  
+   
+  </div>
+  <div>
+  <div class="row"  style="background: white; color: black;" >
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+      <div class="row">
+         <div class="col-sm-2"></div>
+         <div class="col-sm-8">Выводим комментарии</div>    
+      </div>
+  <div class="container">
+      <div class="row" >
+        <div class="col-sm-4" id='mess0'></div>
+        <div class="col-sm-4" id='mess1'></div>
+        <div class="col-sm-4" id='mess2'></div>
+        <div class="col-sm-4" id='mess3'></div>
+        <div class="col-sm-4" id='mess4'></div>
+        <div class="col-sm-4" id='mess5'></div>             
+      </div>
+   </div>
+  </div>
+
+
+</div>
+  <div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-8"><img src="firma.jpg" class="img-fluid" alt="image"></div>
+  </div>
+</div>
+
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script>
+      GetRecords();
+              // Получение всех пользователей
+      function GetRecords() {
+          $.ajax({
+              url: "/loadRecords",
+              type: "GET",
+              contentType: "application/json",
+              success: function (users) {
+                  //var rows = "";
+                  var rows=[];
+                  $.each(users, (i,o)=>rows.push(o));
+                  console.log(rows);
+                  console.log(compose(rows[0]));
+                  //$( "#mess0" ).append( "<p>"+rows[0].record+"</p>" );    
+                  $( "#mess0" ).append( compose(rows[0]) );
+                  $( "#mess1" ).append( compose(rows[1]) );
+                  $( "#mess2" ).append( compose(rows[2]) );
+                  $( "#mess3" ).append( compose(rows[3]) );
+                  $( "#mess4" ).append( compose(rows[4]) );
+                  $( "#mess5" ).append( compose(rows[5]) );
+              
+               }
+          });
+      }
+
+      $("#record").click(function (e) {
+            e.preventDefault();
+
+            var name = $('#name').val();
+            var email = $('#email').val();
+            var kommit = $('#kommit').val();
+            CreateRecord(name, email, kommit, o=>clin(o))
+            $('#kommit').val('');
+      });
+
+  function clin(vol){
+    //socket.emit('chat message', vol);
+    //$( "#mess0" ).append( "<p>"+vol[0].email+"</p>" ); 
+    $( "#mess0" ).append( compose(vol[0]) );
+    console.log(vol);
+      
+  }
+    function compose(data){
+      var name=data.login;
+      var email=data.password;
+      var kommit=data.record;
+      var answer='<div class="container" >';
+
+      answer+='<div class="row" style="background: green; color: black;">';
+      answer+='<div class="col-12">';
+      answer+=name;
+      answer+='</div>';
+      answer+='</div>';
+      
+
+      answer+='<div class="row" style="background: gray; color: green;">';
+      answer+='<div class="col-12">';
+      answer+=email;
+      answer+='</div>';
+      answer+='</div>';
+      
+
+      answer+='<div class="row" style="background: gray; color: black;">';
+      answer+='<div class="col-12">';
+      answer+=kommit;
+      answer+='</div>';
+      answer+='</div>';
+
+      answer+='</div>';
+
+      return answer
+    }
+  // socket.on('chat message', function(msg){
+  //   if (msg!=''){
+  //     //$("table tbody").append(row(msg));
+  //     console.log(msg);
+  // }
+    
+  //   //$('#main').val(msg);
+  // }); 
+
+      function CreateRecord(userName, userEmail, userKommit, callback) {
+        //if (userRecord=='') return 0  
+          $.ajax({
+              url: "createRecord",
+              contentType: "application/json",
+              method: "POST",
+              data: JSON.stringify({
+                  login: userName,
+                  password: userEmail,
+                  record: userKommit
+              }),
+              success: function (users) {
+                  //reset();
+                  //$("table tbody").append(row(user));
+                  callback(users)
+              }
+          })
+          
+      }
+    </script>
+  </body>
+</html>
