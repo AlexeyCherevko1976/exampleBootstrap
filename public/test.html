@@ -112,8 +112,20 @@
             var name = $('#name').val();
             var email = $('#email').val();
             var kommit = $('#kommit').val();
+
+            if (!name){                                     
+                document.querySelector('#name').placeholder='Введите Имя';
+            }        
+            else if (!email){                                     
+                document.querySelector('#email').placeholder='Введите email';
+            }
+            else if (!kommit){                                     
+                document.querySelector('#kommit').placeholder='Введите kommit';
+            }
+            else{
             CreateRecord(name, email, kommit, o=>clin(o))
             $('#kommit').val('');
+            }
       });
 
   function clin(vol){
